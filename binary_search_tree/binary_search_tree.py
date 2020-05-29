@@ -1,7 +1,7 @@
 """
-Binary search trees are a data structure that enforce an ordering over 
-the data they store. That ordering in turn makes it a lot more efficient 
-at searching for a particular piece of data in the tree. 
+Binary search trees are a data structure that enforce an ordering over
+the data they store. That ordering in turn makes it a lot more efficient
+at searching for a particular piece of data in the tree.
 
 This part of the project comprises two days:
 1. Implement the methods `insert`, `contains`, `get_max`, and `for_each`
@@ -9,6 +9,46 @@ This part of the project comprises two days:
 2. Implement the `in_order_print`, `bft_print`, and `dft_print` methods
    on the BSTNode class.
 """
+
+# import sys
+# sys.path.append('./queue')
+# sys.path.append('./stack')
+# from queue import Queue
+# from stack import Stack
+
+
+class Queue:
+    def __init__(self):
+        self.size = 0
+        self.storage = []
+
+    def __len__(self):
+        return len(self.storage)
+
+    def enqueue(self, value):
+        # append to list
+        return self.storage.append(value)
+
+    def dequeue(self):
+        if (len(self.storage) > 0):
+            # pop from beginning of list
+            return self.storage.pop(0)
+
+
+class Stack:
+    def __init__(self):
+        self.size = 0
+        self.storage = []
+
+    def __len__(self):
+        return len(self.storage)
+
+    def push(self, value):
+        return self.storage.insert(0, value)
+
+    def pop(self):
+        if len(self.storage) > 0:
+            return self.storage.pop(0)
 
 
 class BSTNode:
@@ -41,15 +81,15 @@ class BSTNode:
                 # if it does have a value - insert the value into that node
                 self.right.insert(value)
 
-
     # Return True if the tree contains the value
     # False if it does not
+
     def contains(self, target):
         # if self.value is equal to target
         if self.value == target:
             # return true
             return True
-        
+
         # if self.value is more than target
         if self.value > target:
             # check left node, which if it is None - reject
@@ -58,7 +98,7 @@ class BSTNode:
             # otherwise, check that left node
             else:
                 return self.left.contains(target)
-        
+
         # if self.value is less than target
         if self.value < target:
             # check the right branch, and it if is None - reject
@@ -79,28 +119,88 @@ class BSTNode:
             # if the right branch does exist
             # run this method again on that branch
             return self.right.get_max()
-            
+
+        # non-recursion VVV
+        # current_node = self
+        # while current_node.right is not None:
+            # current_node = current_node.right
+
+        # return current_node.value
 
     # Call the function `fn` on the value of each node
     def for_each(self, fn):
-        pass
+        # call function on value that we are on
+        fn(self.value)
+
+        # call function on left side of branch if exists
+        if self.left:
+            self.left.for_each(fn)
+
+        # call function on right side of branch if exists
+        if self.right:
+            self.right.for_each(fn)
 
     # Part 2 -----------------------
 
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self, node):
-        pass
+        if node is None:
+            return
+        self.in_order_print(node.left)
+        print(node.value)
+        self.in_order_print(node.right)
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
     def bft_print(self, node):
-        pass
+        # init queue
+        q = Queue()
+        # add node to queue
+        q.enqueue(node)
+
+        # if queue length is more than 0
+        while q.__len__() > 0:
+            # pop from queue
+            popped = q.dequeue()
+            # print value
+            print(popped.value)
+
+            # if there is a left branch
+            if popped.left:
+                # add to beginning of queue
+                q.enqueue(popped.left)
+            # if there is a right branch
+            if popped.right:
+                # enqueue right branch
+                q.enqueue(popped.right)
+            
+            # repeat till there is nothing in the queue
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
     def dft_print(self, node):
-        pass
+        # initialize stack
+        s = Stack()
+        # push node onto stack
+        s.push(node)
+
+        # if length is more than 0
+        while s.__len__() > 0:
+            # pop off top of stack
+            popped = s.pop()
+            # print that value
+            print(popped.value)
+            # if there is a left branch
+            if popped.left:
+                # push to the top of stack
+                s.push(popped.left)
+            # if there is a right branch
+            if popped.right:
+                # push to top of stack
+                s.push(popped.right)
+
+            # repeat till there is nothing in the stack
 
     # Stretch Goals -------------------------
     # Note: Research may be required
@@ -112,3 +212,36 @@ class BSTNode:
     # Print Post-order recursive DFT
     def post_order_dft(self, node):
         pass
+
+# in order print
+# node = BSTNode(44)
+# node.insert(38)
+# node.insert(39)
+# node.insert(54)
+# node.insert(4)
+# node.insert(28)
+# node.insert(97)
+# node.insert(53)
+# node.in_order_print(node)
+
+# breadth
+# node = BSTNode(44)
+# node.insert(38)
+# node.insert(39)
+# node.insert(54)
+# node.insert(4)
+# node.insert(28)
+# node.insert(97)
+# node.insert(53)
+# node.bft_print(node)
+
+# depth
+node = BSTNode(44)
+node.insert(38)
+node.insert(39)
+node.insert(54)
+node.insert(4)
+node.insert(28)
+node.insert(97)
+node.insert(53)
+node.dft_print(node)
