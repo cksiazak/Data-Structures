@@ -168,11 +168,11 @@ class BSTNode:
 
             # if there is a left branch
             if popped.left:
-                # add to beginning of queue
+                # add to queue
                 q.enqueue(popped.left)
             # if there is a right branch
             if popped.right:
-                # enqueue right branch
+                # add to queue branch
                 q.enqueue(popped.right)
             
             # repeat till there is nothing in the queue
@@ -193,11 +193,11 @@ class BSTNode:
             print(popped.value)
             # if there is a left branch
             if popped.left:
-                # push to the top of stack
+                # add to stack
                 s.push(popped.left)
             # if there is a right branch
             if popped.right:
-                # push to top of stack
+                # add to stack
                 s.push(popped.right)
 
             # repeat till there is nothing in the stack
@@ -236,12 +236,12 @@ class BSTNode:
 # node.bft_print(node)
 
 # depth
-node = BSTNode(44)
-node.insert(38)
-node.insert(39)
-node.insert(54)
-node.insert(4)
-node.insert(28)
-node.insert(97)
-node.insert(53)
-node.dft_print(node)
+# node = BSTNode(44)
+# node.insert(38)
+# node.insert(39)
+# node.insert(54)
+# node.insert(4)
+# node.insert(28)
+# node.insert(97)
+# node.insert(53)
+# node.dft_print(node)
