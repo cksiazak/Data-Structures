@@ -225,15 +225,15 @@ class BSTNode:
 # node.in_order_print(node)
 
 # breadth
-# node = BSTNode(44)
-# node.insert(38)
-# node.insert(39)
-# node.insert(54)
-# node.insert(4)
-# node.insert(28)
-# node.insert(97)
-# node.insert(53)
-# node.bft_print(node)
+node = BSTNode(44)
+node.insert(38)
+node.insert(39)
+node.insert(54)
+node.insert(4)
+node.insert(28)
+node.insert(97)
+node.insert(53)
+node.bft_print(node)
 
 # depth
 # node = BSTNode(44)
